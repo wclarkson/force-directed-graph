@@ -23,14 +23,20 @@ class Node {
     mass = m_in;
     neighbors = new ArrayList();  
     nodecolor = color(56,158,240);
-    k = 2000000;    // inversely proportional to repulsion
-    k_spr = 100000;   // propotional to spring force
+    k = 200;        // inversely proportional to repulsion
+    k_spr = 0.6;    // propotional to spring force
     spr_damp = 0.05;
     air_damp = 0.05;
+    fixed = false;
   }
   
   void addLink(Node n) {
     neighbors.add(n);
+    n.addLinkOnce(this);
+  }
+  
+  void addLinkOnce(Node n) {    // prevents nodes from infinitely recursing when they add each
+    neighbors.add(n);           // other as neighbors 
   }
   
   void calculateForces(ArrayList<Node>nodes) {
@@ -39,16 +45,16 @@ class Node {
     for (Node n: (ArrayList<Node>)nodes) {
       if (n!=this) {
         PVector force = PVector.sub(pos,n.pos);
-        PVector.mult(force,k*charge*n.charge/pow(force.mag(),2));
+        PVector dir = force;
+        dir.normalize();
+        PVector.mult(dir,k*charge*n.charge/pow(force.mag(),2));
         net.add(force);
       }
     }
     for (Node n: (ArrayList<Node>)neighbors) {
       if (n!=this) {
         PVector disp = PVector.sub(pos,n.pos);
-//        disp.mult(-k_spr*(disp.mag()-PVector.sub(pos0,n.pos0).mag()));
-        disp.mult(-k_spr*(disp.mag()-2));
-//        disp.sub(PVector.mult(vel,spr_damp));
+        disp.mult(-k_spr*(disp.mag()-4));
         net.add(disp);
       }
     }

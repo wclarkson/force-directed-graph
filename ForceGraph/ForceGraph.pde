@@ -9,7 +9,9 @@ void setup() {
   root = new Node(0,0,1,10);
   root.fixed = true;
   n1 = new Node(10,0,1,1);
+  n1.fixed = false;
   n2 = new Node(10,10,1,1);
+  n2.fixed = false;
   n3 = new Node(10,15,1,1);
   n4 = new Node(0,10,1,1);
   n5 = new Node(0,-10,1,1);
@@ -20,6 +22,8 @@ void setup() {
   n1.addLink(n5);
   g.addNode(root);
   g.addNode(n1);
+//  println(root.neighbors);
+//  println(n1.neighbors);
   g.addNode(n2);
   g.addNode(n3);
   g.addNode(n4);

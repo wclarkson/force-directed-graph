@@ -1,0 +1,10 @@
+Force Directed Graph
+Started: October 7, 2012
+
+I started working on this project after getting interested using a
+physics-based algorithm to draw a graph or tree in a pleasing way.
+
+It currently does a passable job of simulating the physics of the graph
+for a small number of nodes. My next goal is to create a function that will
+traverse a tree and generate a corresponding graph. Most of the code for this
+is written, but not yet working.
